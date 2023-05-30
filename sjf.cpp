@@ -1,6 +1,6 @@
 #include<stdio.h>
 struct process{
-	int at,bt,wt,tat,ft,st;
+	int at,bt,wt,tat,ft,st,rt;
 	char name[20];
 };
 int main(){
@@ -52,13 +52,14 @@ int main(){
 	p[i].wt=p[i].st-p[i].at;
 	p[i].ft=p[i].st+p[i].bt;
 	p[i].tat=p[i].ft-p[i].at;
+	p[i].rt=p[i].st-p[i].at;
 	awt+= p[i].wt;
 	atat+=p[i].tat;
 	
 	}
-	printf("Process\t AT\tBT\tST\tFT\tTAT\tWT\n");
+	printf("Process\t AT\tBT\tST\tFT\tTAT\tWT\tRT\n");
 	for(i=0;i<n;i++){
-		printf("%s\t%d\t%d\t%d\t%d\t%d\t%d\t\n",p[i].name,p[i].at,p[i].bt,p[i].st,p[i].ft,p[i].tat,p[i].wt);
+		printf("%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t\n",p[i].name,p[i].at,p[i].bt,p[i].st,p[i].ft,p[i].tat,p[i].wt,p[i].rt);
 	}
 	printf("AWT: %f\n",awt/n);
 	printf("ATAT: %f",atat/n);
