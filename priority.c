@@ -33,8 +33,7 @@ int main()
         p[i]=p[pos];
         p[pos]=temp;
     }
-    wt[0]=0; //waiting time for first process is zero
-    //calculate waiting time
+    wt[0]=0;
     for(i=1;i<n;i++)
     {
         wt[i]=0;
@@ -42,7 +41,7 @@ int main()
             wt[i]+=bt[j];
         total+=wt[i];
     }
-    avg_wt=total/n;      //average waiting time
+    avg_wt=total/n;
     total=0;
     printf("\nProcess\t    Burst Time    \tWaiting Time\tTurnaround Time");
     for(i=0;i<n;i++)
@@ -51,7 +50,7 @@ int main()
         total+=tat[i];
         printf("\nP[%d]\t\t  %d\t\t    %d\t\t\t%d",p[i],bt[i],wt[i],tat[i]);
     }
-    avg_tat=total/n;     //average turnaround time
+    avg_tat=total/n;
     printf("\n\nAverage Waiting Time=%d",avg_wt);
     printf("\nAverage Turnaround Time=%d\n",avg_tat);
 return 0;
