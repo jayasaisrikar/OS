@@ -1,30 +1,26 @@
 #include<stdio.h>    
 int main()  
-{  
-    // initlialize the variable name  
+{   
     int i, NOP, sum=0,count=0, y, quant, wt=0, tat=0, at[10], bt[10], temp[10];  
     float avg_wt, avg_tat;  
     printf(" Total number of process in the system: ");  
     scanf("%d", &NOP);  
-    y = NOP; // Assign the number of process to variable y  
-// Use for loop to enter the details of the process like Arrival time and the Burst Time  
+    y = NOP;
 for(i=0; i<NOP; i++)  
 {  
 printf("\n Enter the Arrival and Burst time of the Process[%d]\n", i+1);  
-printf(" Arrival time is: \t");  // Accept arrival time  
+printf(" Arrival time is: \t"); 
 scanf("%d", &at[i]);  
-printf(" \nBurst time is: \t"); // Accept the Burst time  
+printf(" \nBurst time is: \t"); 
 scanf("%d", &bt[i]);  
-temp[i] = bt[i]; // store the burst time in temp array  
-}  
-// Accept the Time qunat  
+temp[i] = bt[i];  
+}    
 printf("Enter the Time Quantum for the process: \t");  
-scanf("%d", &quant);  
-// Display the process No, burst time, Turn Around Time and the waiting time  
+scanf("%d", &quant);    
 printf("\n Process No \t\t Burst Time \t\t TAT \t\t Waiting Time ");  
 for(sum=0, i = 0; y!=0; )  
 {  
-if(temp[i] <= quant && temp[i] > 0) // define the conditions   
+if(temp[i] <= quant && temp[i] > 0)   
 {  
     sum = sum + temp[i];  
     temp[i] = 0;  
