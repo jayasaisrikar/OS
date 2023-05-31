@@ -1,68 +1,80 @@
-#include<stdio.h>
-void print(int frameno,int frame[])
-{
-   int j;
-            for(j=0;j<frameno;j++)
-            printf("%d\t",frame[j]);
-            printf("\n");
-}         
+#include <stdio.h>
 int main()
 {
-  Int i,j,k,n,page[50],frameno,frame[10],move=0,flag,count=0,
-count1[10]={0},repindex,leastcount;
-            float rate;
-            printf("Enter the number of pages\n");
-            scanf("%d",&n);
-            printf("Enter the page reference numbers\n");
-            for(i=0;i<n;i++)
-            scanf("%d",&page[i]);
-            printf("Enter the number of frames\n");
-            scanf("%d",&frameno);
-            for(i=0;i<frameno;i++)
-            frame[i]=-1;
-            printf("Page reference string\tFrames\n");
-            for(i=0;i<n;i++)
+    int referenceString[10], pageFaults = 0, hits = 0, m, n, s, pages, frames;
+    printf("\nEnter the number of Pages:\t");
+    scanf("%d", &pages);
+    printf("\nEnter reference string values:\n");
+    for (m = 0; m < pages; m++)
+    {
+        printf("Value No. [%d]:\t", m + 1);
+        scanf("%d", &referenceString[m]);
+    }
+    printf("\nWhat are the total number of frames:\t");
+    scanf("%d", &frames);
+    int temp[frames];
+    int count[frames];
+    for (m = 0; m < frames; m++)
+    {
+        temp[m] = -1;
+        count[m] = 0;
+    }
+    for (m = 0; m < pages; m++)
+    {
+        s = 0;
+        for (n = 0; n < frames; n++)
+        {
+            if (referenceString[m] == temp[n])
             {
-                        printf("%d\t\t\t",page[i]);
-                        flag=0;
-                        for(j=0;j<frameno;j++)
-                        {
-                                    if(page[i]==frame[j])
-                                    {
-                                                flag=1;
-                                                count1[j]++;
-                                                printf("No replacement\n");
-                                                break;
-                                    }
-                        }
-                        if(flag==0&&count<frameno)
-                        {
-                                    frame[move]=page[i];
-                                    count1[move]=1;
-                                    move=(move+1)%frameno;
-                                    count++;
-                                    print(frameno,frame);
-                        }
-                        else if(flag==0)
-                        {
-                                    repindex=0;
-                                    leastcount=count1[0];
-                                    for(j=1;j<frameno;j++)
-                                    {
-                                                if(count1[j]<leastcount)
-                                                {
-                                                            repindex=j;
-                                                            leastcount=count1[j];
-                                                }
-                                    }
-                                   
-                                    frame[repindex]=page[i];
-                                    count1[repindex]=1;
-                                    count++;
-                                    print(frameno,frame);
-                        }}
-            rate=(float)count/(float)n;
-            printf("Number of page faults is %d\n",count);
-            printf("Fault rate is %f\n",rate);
-            return 0;
-}  
+                s++;
+                pageFaults--;
+                hits++;
+                count[n]++;
+                break;
+            }
+        }
+        pageFaults++;
+        if ((pageFaults <= frames) && (s == 0))
+        {
+            int minCount = count[0];
+            int minIndex = 0;
+            
+            for (n = 1; n < frames; n++)
+            {
+                if (count[n] < minCount)
+                {
+                    minCount = count[n];
+                    minIndex = n;
+                }
+            }
+            temp[minIndex] = referenceString[m];
+            count[minIndex] = 1;
+        }
+        else if (s == 0)
+        {
+            int minCount = count[0];
+            int minIndex = 0;
+            for (n = 1; n < frames; n++)
+            {
+                if (count[n] < minCount)
+                {
+                    minCount = count[n];
+                    minIndex = n;
+                }
+            }
+            temp[minIndex] = referenceString[m];
+            count[minIndex] = 1;
+        }
+        printf("\n");
+        for (n = 0; n < frames; n++)
+        {
+            printf("%d\t", temp[n]);
+        }
+    }
+    float hitRatio = (float)hits / pages;
+    float missRatio = (float)(pageFaults - hits) / pages;
+    printf("\nTotal Page Faults:\t%d\n", pageFaults);
+    printf("Hit Ratio:\t%.2f\n", hitRatio);
+    printf("Miss Ratio:\t%.2f\n", missRatio);
+    return 0;
+}
